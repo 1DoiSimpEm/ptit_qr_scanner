@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.QRCodeScannerScanBarcode" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="ThemeOverlay.QRCodeScannerScanBarcode.Dialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorAccent">#3BB868</item>
+    </style>
+    <style name="DialogTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">#3BB868</item>
+    </style>
 
-    <style name="Theme.QrScanner" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="roundedImageView6" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+
 </resources>

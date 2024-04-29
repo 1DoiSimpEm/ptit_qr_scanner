@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="rounder_8">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">64dp</item>
+    </style>
+
+    <style name="caption1">
+        <item name="android:textColor">@color/neutral_1</item>
+        <item name="android:textSize">10sp</item>
+        <item name="lineHeight">20dp</item>
+    </style>
+</resources>
