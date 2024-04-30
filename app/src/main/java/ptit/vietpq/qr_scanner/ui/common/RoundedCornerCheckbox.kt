@@ -1,4 +1,4 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui.common
+package ptit.vietpq.qr_scanner.ui.common
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.QrCodeTheme
+import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme
 
 @Composable
 fun RoundedCornerCheckbox(

@@ -1,4 +1,4 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui.common
+package ptit.vietpq.qr_scanner.ui.common
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,11 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.QrCodeTheme
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.common.TwButton
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.common.TwTextButton
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.locale.QrLocale
 import kotlinx.coroutines.launch
+import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme
+import ptit.vietpq.qr_scanner.designsystem.common.TwButton
+import ptit.vietpq.qr_scanner.designsystem.common.TwTextButton
+import ptit.vietpq.qr_scanner.designsystem.locale.QrLocale
 
 internal val DialogPadding = 24.dp
 private val IconPadding = PaddingValues(bottom = 16.dp)

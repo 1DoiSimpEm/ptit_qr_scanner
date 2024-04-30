@@ -3,7 +3,7 @@ package ptit.vietpq.qr_scanner.designsystem.common
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import ptit.vietpq.qr_scanner.designsystem.locale.QrLocale
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui.common.BaseDialog
+import ptit.vietpq.qr_scanner.ui.common.BaseDialog
 
 @Composable
 fun RationaleDialog(

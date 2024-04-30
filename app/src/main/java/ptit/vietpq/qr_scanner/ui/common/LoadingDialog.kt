@@ -1,4 +1,4 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui.common
+package ptit.vietpq.qr_scanner.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,9 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.R
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.QrCodeTheme
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.locale.QrLocale
+import ptit.vietpq.qr_scanner.R
+import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme
+import ptit.vietpq.qr_scanner.designsystem.locale.QrLocale
 
 @Composable
 fun LoadingDialog(isDisplayed: Boolean, modifier: Modifier = Modifier) {

@@ -1,4 +1,4 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui.common
+package ptit.vietpq.qr_scanner.ui.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,10 +21,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.QrCodeTheme
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.locale.QrLocale
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui.ads_view.ShowBannerNativeMediumType2
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.utils.AppConstant
+import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme
+import ptit.vietpq.qr_scanner.designsystem.locale.QrLocale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,12 +85,6 @@ fun ExitAppBottomSheet(
             )
           }
           Spacer(modifier = Modifier.size(16.dp))
-          ShowBannerNativeMediumType2(
-            screenName = AppConstant.NativeAds.EXIT,
-            screenTracking = AppConstant.NativeAds.EXIT,
-            modifier = Modifier
-              .fillMaxWidth(),
-          )
           Spacer(modifier = Modifier.size(16.dp))
         }
       },

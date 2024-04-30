@@ -1,4 +1,4 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui
+package ptit.vietpq.qr_scanner.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.common.RationaleDialog
+import ptit.vietpq.qr_scanner.designsystem.common.RationaleDialog
 
 @Composable
 fun RequestPermissionDialog(

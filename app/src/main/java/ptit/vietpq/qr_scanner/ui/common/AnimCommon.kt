@@ -1,4 +1,4 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.ui.common
+package ptit.vietpq.qr_scanner.ui.common
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.LinearEasing
