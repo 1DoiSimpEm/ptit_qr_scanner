@@ -3,8 +3,8 @@ import androidx.compose.runtime.Immutable
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BarcodeSchema
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BaseBarcodeModel
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.Schema
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.removePrefixIgnoreCase
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.startsWithIgnoreCase
+import ptit.vietpq.qr_scanner.extension.removePrefixIgnoreCase
+import ptit.vietpq.qr_scanner.extension.startsWithIgnoreCase
 
 @Immutable
 data class TikTokProfile(val username: String) :

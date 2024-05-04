@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BarcodeSchema
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BaseBarcodeModel
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.Schema
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.startsWithIgnoreCase
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.unescape
+import ptit.vietpq.qr_scanner.extension.startsWithIgnoreCase
+import ptit.vietpq.qr_scanner.extension.unescape
 import java.util.Locale
 
 @Immutable

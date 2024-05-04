@@ -8,7 +8,6 @@ plugins {
 //    alias(libs.plugins.google.dagger.hilt)
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.google.firebase.perf)
-    alias(libs.plugins.google.gms.services)
 }
 
 android {
@@ -38,17 +37,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
     packaging {
         resources {

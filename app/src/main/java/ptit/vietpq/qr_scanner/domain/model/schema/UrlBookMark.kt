@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BarcodeSchema
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BaseBarcodeModel
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.Schema
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.startsWithAnyIgnoreCase
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.startsWithIgnoreCase
+import ptit.vietpq.qr_scanner.extension.startsWithAnyIgnoreCase
+import ptit.vietpq.qr_scanner.extension.startsWithIgnoreCase
 
 @Immutable
 data class UrlBookmark(val title: String, val url: String) :

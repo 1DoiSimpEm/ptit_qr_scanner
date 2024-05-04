@@ -3,8 +3,8 @@ package com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.schema
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BarcodeSchema
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BaseBarcodeModel
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.Schema
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.joinToStringNotNullOrBlank
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.startsWithIgnoreCase
+import ptit.vietpq.qr_scanner.extension.joinToStringNotNullOrBlank
+import ptit.vietpq.qr_scanner.extension.startsWithIgnoreCase
 import ezvcard.Ezvcard
 
 data class ContactInfoContent(

@@ -3,41 +3,33 @@ package ptit.vietpq.qr_scanner
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ptit.vietpq.qr_scanner.ui.theme.QrScannerTheme
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import ptit.vietpq.qr_scanner.presentation.main.QrCodeApp
+import dagger.hilt.android.AndroidEntryPoint
+import ptit.vietpq.qr_scanner.designsystem.internal.QRCodeScannerScanBarcodeTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val splashScreen = installSplashScreen()
+        // Turn off the decor fitting system windows, which allows us to handle insets,
+        // including IME animations, and go edge-to-edge
+        // This also sets up the initial system bar style based on the platform theme
+        enableEdgeToEdge()
         setContent {
-            QrScannerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
-                }
-            }
+            QrCodeApp()
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    QrScannerTheme {
-        Greeting("Android")
+private fun GreetingPreview() {
+    QRCodeScannerScanBarcodeTheme {
+        QrCodeApp()
     }
 }

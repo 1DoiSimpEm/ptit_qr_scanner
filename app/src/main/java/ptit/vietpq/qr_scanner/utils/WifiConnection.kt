@@ -11,7 +11,7 @@ import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.wifiManager
+import ptit.vietpq.qr_scanner.extension.wifiManager
 import ptit.vietpq.qr_scanner.R
 import javax.inject.Inject
 

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BarcodeSchema
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.BaseBarcodeModel
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.Schema
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.extension.startsWithAnyIgnoreCase
+import ptit.vietpq.qr_scanner.extension.startsWithAnyIgnoreCase
 
 @Immutable
 data class FacebookProfile(val profileId: String) :

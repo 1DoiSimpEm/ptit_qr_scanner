@@ -13,7 +13,6 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.google.devtools.ksp) apply false
     alias(libs.plugins.google.dagger.hilt) apply false
-    alias(libs.plugins.google.gms.services) apply false
     alias(libs.plugins.android.library) apply false
 
     alias(libs.plugins.gradle.spotless) apply false
