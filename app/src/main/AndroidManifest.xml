@@ -53,6 +53,7 @@
         </intent>
     </queries>
     <application
+        android:name=".QrCodeApplication"
         android:allowBackup="true"
         android:configChanges="orientation|screenSize"
         android:dataExtractionRules="@xml/data_extraction_rules"

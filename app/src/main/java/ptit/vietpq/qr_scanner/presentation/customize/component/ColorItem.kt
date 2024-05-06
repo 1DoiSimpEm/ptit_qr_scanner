@@ -1,4 +1,4 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.presentation.customize.component
+package ptit.vietpq.qr_scanner.presentation.customize.component
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
@@ -18,15 +18,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.designsystem.QrCodeTheme
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.customize_qr.ColorModel
+import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme
+import ptit.vietpq.qr_scanner.domain.model.customize_qr.ColorModel
 
 @Composable
 fun ColorItem(
-  colorItem: ColorModel,
-  isSelected: Boolean,
-  onColorSelected: (ColorModel) -> Unit,
-  modifier: Modifier = Modifier,
+    colorItem: ColorModel,
+    isSelected: Boolean,
+    onColorSelected: (ColorModel) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
   val outerStrokeColor by animateColorAsState(
     targetValue = if (isSelected) QrCodeTheme.color.primary else Color.Transparent,

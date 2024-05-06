@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.Language
+import ptit.vietpq.qr_scanner.domain.model.Language
 import kotlinx.collections.immutable.ImmutableList
 import ptit.vietpq.qr_scanner.R
 import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme

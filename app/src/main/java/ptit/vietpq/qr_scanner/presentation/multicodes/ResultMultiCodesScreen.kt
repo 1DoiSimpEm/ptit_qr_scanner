@@ -1,5 +1,6 @@
 package ptit.vietpq.qr_scanner.presentation.multicodes
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -48,32 +49,57 @@ import kotlinx.collections.immutable.persistentListOf
 import ptit.vietpq.qr_scanner.R
 import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme
 import ptit.vietpq.qr_scanner.designsystem.locale.QrLocale
+import ptit.vietpq.qr_scanner.presentation.scan.ScanQrEvent
+import ptit.vietpq.qr_scanner.utils.CollectWithLifecycleEffect
 
 private const val NUMBER_CODES = 2
 
 @Composable
-internal fun MultiCodesRoute(viewModel: ScanViewModel, onBackPress: () -> Unit, onNavigationResult: (String) -> Unit) {
-  val uiScanState: ScanUiState by viewModel.scanUiState.collectAsStateWithLifecycle()
-  val currentOnNavResult by rememberUpdatedState(newValue = onNavigationResult)
-  val context = LocalContext.current
+internal fun MultiCodesRoute(
+    viewModel: ScanViewModel,
+    onBackPress: () -> Unit,
+    onNavigationResult: (String) -> Unit
+) {
+    val uiScanState: ScanUiState by viewModel.scanUiState.collectAsStateWithLifecycle()
+    val currentOnNavResult by rememberUpdatedState(newValue = onNavigationResult)
+    val context = LocalContext.current
 
-  LaunchedEffect(key1 = Unit) {
-    viewModel.loadAdsMultiCode()
-  }
+    viewModel.eventFlow.CollectWithLifecycleEffect { event ->
+        when (event) {
+            is ScanQrEvent.DeleteSuccess -> {
+                if (event.sizeRemain == 0) {
+                    onBackPress()
+                }
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.deleted_successfully),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
-  ResultMultiModeScan(
-    modifier = Modifier,
-    uiState = uiScanState,
-    onBackPress = {
-      viewModel.unSelectedAllBarCode()
-      onBackPress()
-    },
-    onDeleteTrack = {},
-    onClickSelectedDelete = remember { viewModel::selectedBarCode },
-    onClickSelectedAll = remember { viewModel::selectAllBarCode },
-    onConfirmDeleted = remember { viewModel::removeSelectedBarCode },
-    onClickItemResult = remember { viewModel::showResultEvent },
-  )
+            is ScanQrEvent.OnQrScanned -> {
+                currentOnNavResult(event.qrBarModeString)
+            }
+
+            else -> {
+                // Noop
+            }
+        }
+    }
+
+    ResultMultiModeScan(
+        modifier = Modifier,
+        uiState = uiScanState,
+        onBackPress = {
+            viewModel.unSelectedAllBarCode()
+            onBackPress()
+        },
+        onDeleteTrack = {},
+        onClickSelectedDelete = remember { viewModel::selectedBarCode },
+        onClickSelectedAll = remember { viewModel::selectAllBarCode },
+        onConfirmDeleted = remember { viewModel::removeSelectedBarCode },
+        onClickItemResult = remember { viewModel::showResultEvent },
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,204 +114,199 @@ fun ResultMultiModeScan(
     onConfirmDeleted: () -> Unit = {},
     onDeleteTrack: () -> Unit = {},
 ) {
-  val isDeleteMode = remember { mutableStateOf(false) }
-  var showDialogLeave: Boolean by remember { mutableStateOf(false) }
-  var showDialogConfirm: Boolean by remember { mutableStateOf(false) }
+    val isDeleteMode = remember { mutableStateOf(false) }
+    var showDialogLeave: Boolean by remember { mutableStateOf(false) }
+    var showDialogConfirm: Boolean by remember { mutableStateOf(false) }
 
-  BackHandler {
-    showDialogLeave = true
-  }
+    BackHandler {
+        showDialogLeave = true
+    }
 
-  Scaffold(
-    contentColor = QrCodeTheme.color.primary,
-    containerColor = QrCodeTheme.color.primary,
-    modifier = modifier,
-    topBar = {
-      TopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(
-          containerColor = QrCodeTheme.color.backgroundCard,
-          titleContentColor = QrCodeTheme.color.neutral1,
-        ),
-        navigationIcon = {
-          Icon(
-            painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = "Back",
-            modifier = Modifier
-              .padding(vertical = 16.dp, horizontal = 16.dp)
-              .clickable {
-                showDialogLeave = true
-              },
-          )
-        },
-        title = {
-          Text(
-            text = if (isDeleteMode.value) {
-              stringResource(R.string.selected_item_delete, uiState.barCodePresent.count { it.isSelected })
-            } else {
-              stringResource(R.string.codes_number_title, uiState.barCodePresent.size)
-            },
-            color = QrCodeTheme.color.neutral1,
-            style = QrCodeTheme.typo.innerBoldSize20LineHeight28,
-          )
-        },
-        actions = {
-          Row(horizontalArrangement = Arrangement.End) {
-            if (isDeleteMode.value) {
-              IconButton(
-                onClick = {
-                  onClickSelectedAll()
+    Scaffold(
+        contentColor = QrCodeTheme.color.primary,
+        containerColor = QrCodeTheme.color.primary,
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = QrCodeTheme.color.backgroundCard,
+                    titleContentColor = QrCodeTheme.color.neutral1,
+                ),
+                navigationIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_back),
+                        contentDescription = "Back",
+                        modifier = Modifier
+                            .padding(vertical = 16.dp, horizontal = 16.dp)
+                            .clickable {
+                                showDialogLeave = true
+                            },
+                    )
                 },
-              ) {
-                Icon(painterResource(id = R.drawable.ic_box_select_all), contentDescription = null)
-              }
-            }
-            IconButton(
-              onClick = {
-                if (uiState.anyItemSelected) {
-                  showDialogConfirm = true
-                } else {
-                  isDeleteMode.value = !isDeleteMode.value
-                }
-              },
+                title = {
+                    Text(
+                        text = if (isDeleteMode.value) {
+                            stringResource(
+                                R.string.selected_item_delete,
+                                uiState.barCodePresent.count { it.isSelected })
+                        } else {
+                            stringResource(R.string.codes_number_title, uiState.barCodePresent.size)
+                        },
+                        color = QrCodeTheme.color.neutral1,
+                        style = QrCodeTheme.typo.innerBoldSize20LineHeight28,
+                    )
+                },
+                actions = {
+                    Row(horizontalArrangement = Arrangement.End) {
+                        if (isDeleteMode.value) {
+                            IconButton(
+                                onClick = {
+                                    onClickSelectedAll()
+                                },
+                            ) {
+                                Icon(
+                                    painterResource(id = R.drawable.ic_box_select_all),
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                        IconButton(
+                            onClick = {
+                                if (uiState.anyItemSelected) {
+                                    showDialogConfirm = true
+                                } else {
+                                    isDeleteMode.value = !isDeleteMode.value
+                                }
+                            },
+                        ) {
+                            Icon(
+                                painterResource(R.drawable.ic_trash_selected),
+                                contentDescription = null,
+                            )
+                        }
+                    }
+                },
+            )
+        },
+        content = { innerPadding ->
+            Box(
+                modifier = Modifier
+                    .padding(
+                        top = innerPadding.calculateTopPadding(),
+                        start = innerPadding.calculateStartPadding(LayoutDirection.Ltr),
+                        end = innerPadding.calculateEndPadding(LayoutDirection.Ltr),
+                    )
+                    .background(color = QrCodeTheme.color.backgroundCard)
+                    .fillMaxWidth()
+                    .fillMaxSize(),
             ) {
-              Icon(
-                painterResource(R.drawable.ic_trash_selected),
-                contentDescription = null,
-              )
-            }
-          }
-        },
-      )
-    },
-    content = { innerPadding ->
-      Box(
-        modifier = Modifier
-          .padding(
-            top = innerPadding.calculateTopPadding(),
-            start = innerPadding.calculateStartPadding(LayoutDirection.Ltr),
-            end = innerPadding.calculateEndPadding(LayoutDirection.Ltr),
-          )
-          .background(color = QrCodeTheme.color.backgroundCard)
-          .fillMaxWidth()
-          .fillMaxSize(),
-      ) {
-        Column {
-          LazyColumn(
-            modifier = Modifier.weight(1f),
-          ) {
-            items(
-              count = uiState.barCodePresent.size,
-              key = { index -> uiState.barCodePresent[index].identifyBarCodeResult },
-            ) { index ->
-              // Show native ads in here when the index is 2 and the current list size is more than 2
-              if (uiState.barCodePresent.size > 2 && index == 2) {
-                if (uiState.adsViewMultiCode != null) {
-                  AndroidView(
-                    factory = { uiState.adsViewMultiCode.value },
-                    modifier = remember {
-                      Modifier
-                        .fillMaxWidth()
-                        .height(220.dp)
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                    },
-                  )
+                Column {
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        items(
+                            count = uiState.barCodePresent.size,
+                            key = { index -> uiState.barCodePresent[index].identifyBarCodeResult },
+                        ) { index ->
+                            // Show native ads in here when the index is 2 and the current list size is more than 2
+                            ItemRowBarCode(
+                                item = uiState.barCodePresent[index],
+                                modeSelected = isDeleteMode.value,
+                                onClickSelectedDelete = {
+                                    if (isDeleteMode.value) {
+                                        onClickSelectedDelete(it)
+                                    } else {
+                                        onClickItemResult(it)
+                                    }
+                                },
+                            )
+                        }
+                    }
                 }
-              }
 
-              ItemRowBarCode(
-                item = uiState.barCodePresent[index],
-                modeSelected = isDeleteMode.value,
-                onClickSelectedDelete = {
-                  if (isDeleteMode.value) {
-                    onClickSelectedDelete(it)
-                  } else {
-                    onClickItemResult(it)
-                  }
-                },
-              )
+                if (showDialogConfirm) {
+                    val selectedCount = uiState.barCodePresent.count { it.isSelected }
+                    val textCount = if (selectedCount > NUMBER_CODES) {
+                        QrLocale.strings.codes
+                    } else {
+                        QrLocale.strings.code
+                    }
+                    ConfirmDeleteDialog(
+                        onPositive = {
+                            showDialogConfirm = false
+                        },
+                        onDismissRequest = {
+                            showDialogConfirm = false
+                        },
+                        onNegative = {
+                            onDeleteTrack()
+                            onConfirmDeleted()
+                        },
+                        title = stringResource(R.string.confirm_delete),
+                        text = stringResource(
+                            R.string.want_to_delete_this,
+                            selectedCount,
+                            textCount
+                        ),
+                        positiveText = QrLocale.strings.commonCancel,
+                        negativeText = QrLocale.strings.delete,
+                    )
+                }
+
+                if (showDialogLeave) {
+                    ConfirmLeaveDialog(
+                        title = QrLocale.strings.confirmLeave,
+                        text = QrLocale.strings.confirmDeleteTitle,
+                        positiveText = QrLocale.strings.commonCancel,
+                        negativeText = QrLocale.strings.leave,
+                        onPositive = {
+                            showDialogLeave = false
+                        },
+                        onNegative = {
+                            onBackPress()
+                        },
+                        onDismissRequest = { showDialogLeave = false },
+                    )
+                }
             }
-          }
-        }
-
-        if (showDialogConfirm) {
-          val selectedCount = uiState.barCodePresent.count { it.isSelected }
-          val textCount = if (selectedCount > NUMBER_CODES) {
-            QrLocale.strings.codes
-          } else {
-            QrLocale.strings.code
-          }
-          ConfirmDeleteDialog(
-            onPositive = {
-              showDialogConfirm = false
-            },
-            onDismissRequest = {
-              showDialogConfirm = false
-            },
-            onNegative = {
-              onDeleteTrack()
-              onConfirmDeleted()
-            },
-            title = stringResource(R.string.confirm_delete),
-            text = stringResource(R.string.want_to_delete_this, selectedCount, textCount),
-            positiveText = QrLocale.strings.commonCancel,
-            negativeText = QrLocale.strings.delete,
-          )
-        }
-
-        if (showDialogLeave) {
-          ConfirmLeaveDialog(
-            title = QrLocale.strings.confirmLeave,
-            text = QrLocale.strings.confirmDeleteTitle,
-            positiveText = QrLocale.strings.commonCancel,
-            negativeText = QrLocale.strings.leave,
-            onPositive = {
-              showDialogLeave = false
-            },
-            onNegative = {
-              onBackPress()
-            },
-            onDismissRequest = { showDialogLeave = false },
-          )
-        }
-      }
-    },
-  )
+        },
+    )
 }
 
 @Composable
 @Preview
 private fun ItemRowBarCodePreview() {
-  ResultMultiModeScan(
-    uiState = ScanUiState(
-      isLoading = false,
-      tabSelected = TabMode.MULTIPLE,
-      isFlashOn = false,
-      showGuideLine = false,
-      cameraAction = CameraAction.None,
-      retry = false,
-      isLoadingAds = false,
-      barCodePresent = persistentListOf(
-        BarCodeResult(
-          text = "mel",
-          formattedText = "ornatus",
-          format = BarcodeFormat.FORMAT_CODABAR,
-          typeSchema = BarcodeSchema.OTHER,
-          date = 4582,
-          isGenerated = false,
-          isFavorite = false,
-          isSelected = false,
+    ResultMultiModeScan(
+        uiState = ScanUiState(
+            isLoading = false,
+            tabSelected = TabMode.MULTIPLE,
+            isFlashOn = false,
+            showGuideLine = false,
+            cameraAction = CameraAction.None,
+            retry = false,
+            isLoadingAds = false,
+            barCodePresent = persistentListOf(
+                BarCodeResult(
+                    text = "mel",
+                    formattedText = "ornatus",
+                    format = BarcodeFormat.FORMAT_CODABAR,
+                    typeSchema = BarcodeSchema.OTHER,
+                    date = 4582,
+                    isGenerated = false,
+                    isFavorite = false,
+                    isSelected = false,
+                ),
+                BarCodeResult(
+                    text = "mel",
+                    formattedText = "ornatus",
+                    format = BarcodeFormat.FORMAT_CODABAR,
+                    typeSchema = BarcodeSchema.OTHER,
+                    date = 4582,
+                    isGenerated = false,
+                    isFavorite = false,
+                    isSelected = false,
+                ),
+            ),
         ),
-        BarCodeResult(
-          text = "mel",
-          formattedText = "ornatus",
-          format = BarcodeFormat.FORMAT_CODABAR,
-          typeSchema = BarcodeSchema.OTHER,
-          date = 4582,
-          isGenerated = false,
-          isFavorite = false,
-          isSelected = false,
-        ),
-      ),
-    ),
-  )
+    )
 }

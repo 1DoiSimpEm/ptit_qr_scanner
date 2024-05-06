@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.customize_qr.ColorModel
+import ptit.vietpq.qr_scanner.domain.model.customize_qr.ColorModel
 import ptit.vietpq.qr_scanner.presentation.create.Title
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.presentation.customize.component.ColorItem
+import ptit.vietpq.qr_scanner.presentation.customize.component.ColorItem
 import ptit.vietpq.qr_scanner.R
 
 @Composable

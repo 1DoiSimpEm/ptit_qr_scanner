@@ -13,6 +13,7 @@ import kotlinx.coroutines.channels.onSuccess
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import ptit.vietpq.qr_scanner.BuildConfig
 import timber.log.Timber
 
 @MainThread

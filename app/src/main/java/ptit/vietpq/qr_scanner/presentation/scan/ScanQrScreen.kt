@@ -83,13 +83,6 @@ internal fun ScanRoute(
         Toast.makeText(context, context.getString(R.string.deleted_successfully), Toast.LENGTH_SHORT).show()
       }
 
-      is ScanQrEvent.ShowBottomBarEvent -> {
-//        showBottomSheet(event.isShow)
-      }
-
-      is ScanQrEvent.ShowInterAds -> {
-        currentOnNavResult(event.qrBarModeString)
-      }
     }
   }
   ScanQrScreen(
@@ -103,12 +96,10 @@ internal fun ScanRoute(
     },
     onClickForwardSettings = { context.startActivity(context.settingsIntent) },
     onModeScanClick = remember { viewModel::selectTabMode },
-//    onPickImage = remember { viewModel::pickImage },
-    onPickImage = { onImagePick() },
+    onPickImage = remember { viewModel::pickImage },
     onDismissGuideLine = remember { viewModel::saveShowGuideLine },
     onToggleFlashLight = remember { viewModel::toggleFlashLight },
     onTabShowMultiCodes = onShowTabMultiCodes,
-    showBottomSheet = remember { viewModel::showBottomBar },
     showExitBottomSheet = { currentOnExitApp() },
   )
 }
@@ -125,7 +116,6 @@ fun ScanQrScreen(
   onDismissGuideLine: (Boolean) -> Unit,
   onTabShowMultiCodes: () -> Unit,
   onToggleFlashLight: () -> Unit,
-  showBottomSheet: (show: Boolean) -> Unit,
   showExitBottomSheet: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
@@ -135,13 +125,6 @@ fun ScanQrScreen(
   }
 
   val cameraPermissionState: PermissionState = rememberPermissionState(Manifest.permission.CAMERA)
-  val imagePermissionState: PermissionState = rememberPermissionState(
-    if (Build.VERSION_CODES.TIRAMISU <= Build.VERSION.SDK_INT) {
-      Manifest.permission.READ_MEDIA_IMAGES
-    } else {
-      Manifest.permission.READ_EXTERNAL_STORAGE
-    },
-  )
   val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
     val uri = result.data?.data ?: return@rememberLauncherForActivityResult
     onPickImage(uri)
@@ -153,17 +136,6 @@ fun ScanQrScreen(
       cameraPermissionState.launchPermissionRequest()
     }
   }
-
-  when(imagePermissionState.status){
-    is PermissionStatus.Granted -> {
-      onPickImage(Uri.EMPTY)
-    }
-
-    is PermissionStatus.Denied -> {
-      TODO()
-    }
-  }
-
   BackHandler {
     showExitBottomSheet()
   }

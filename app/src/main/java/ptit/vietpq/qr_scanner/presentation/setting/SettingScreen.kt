@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ptit.vietpq.qr_scanner.BuildConfig
 import ptit.vietpq.qr_scanner.designsystem.QrCodeTheme
 import ptit.vietpq.qr_scanner.designsystem.locale.QrLocale
 import ptit.vietpq.qr_scanner.extension.openBrowser

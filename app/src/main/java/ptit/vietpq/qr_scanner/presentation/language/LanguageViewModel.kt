@@ -13,9 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LanguageViewModel @Inject constructor(
   private val sharePreferenceProvider: SharePreferenceProvider,
-  private val eventChannel: EventChannel<LoadAdsInterAction>,
-) : ViewModel(),
-  HasEventFlow<LoadAdsInterAction> by eventChannel {
+) : ViewModel(){
   var languageCode: String
     get() = sharePreferenceProvider.get<String>(SharePreferenceProvider.CURRENT_LANGUAGE_CODE) ?: "en"
     set(value) {

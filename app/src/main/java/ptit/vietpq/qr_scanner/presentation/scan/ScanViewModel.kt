@@ -57,12 +57,6 @@ class ScanViewModel @Inject constructor(
   private val showGuideLine = sharePreferenceProvider.get<Boolean>(SharePreferenceProvider.SHOW_GUIDE_LINE_KEY) ?: false
 
 
-  fun showBottomBar(show: Boolean) {
-    viewModelScope.launch {
-      eventChannel.send(ScanQrEvent.ShowBottomBarEvent(show))
-    }
-  }
-
   // Scan SingleMode
   fun resultScanModeSingle(barCode: Barcode, imageRaw: Bitmap) {
     viewModelScope.launch {

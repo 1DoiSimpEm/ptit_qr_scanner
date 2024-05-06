@@ -1,10 +1,10 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model
+package ptit.vietpq.qr_scanner.domain.model
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.R
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.parcelize.Parcelize
+import ptit.vietpq.qr_scanner.R
 
 @Immutable
 @Parcelize

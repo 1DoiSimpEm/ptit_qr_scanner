@@ -48,7 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.OnboardPage
+import ptit.vietpq.qr_scanner.domain.model.OnboardPage
 import com.qrcode.qrscanner.barcode.barcodescan.qrreader.presentation.main.QrAppViewModel
 import kotlinx.coroutines.launch
 import ptit.vietpq.qr_scanner.R

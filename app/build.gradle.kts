@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlinx.kover)
-//    alias(libs.plugins.google.dagger.hilt)
+    alias(libs.plugins.google.dagger.hilt)
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.google.firebase.perf)
 }

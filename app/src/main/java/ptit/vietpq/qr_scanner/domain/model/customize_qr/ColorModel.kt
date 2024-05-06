@@ -1,10 +1,10 @@
-package com.qrcode.qrscanner.barcode.barcodescan.qrreader.domain.model.customize_qr
+package ptit.vietpq.qr_scanner.domain.model.customize_qr
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
-import com.qrcode.qrscanner.barcode.barcodescan.qrreader.R
 import javax.annotation.concurrent.Immutable
 import kotlinx.collections.immutable.persistentListOf
+import ptit.vietpq.qr_scanner.R
 
 @Immutable
 @Stable

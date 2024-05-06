@@ -22,6 +22,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.FileProvider
 import androidx.core.os.LocaleListCompat
+import ptit.vietpq.qr_scanner.BuildConfig
 import ptit.vietpq.qr_scanner.MainActivity
 import ptit.vietpq.qr_scanner.R
 import ptit.vietpq.qr_scanner.utils.AppConstant

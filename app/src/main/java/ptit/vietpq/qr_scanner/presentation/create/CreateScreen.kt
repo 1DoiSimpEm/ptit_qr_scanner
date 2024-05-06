@@ -22,7 +22,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,22 +39,10 @@ import ptit.vietpq.qr_scanner.utils.CollectWithLifecycleEffect
 internal fun CreateRoute(onItemClicked: (CreateQrType) -> Unit, viewModel: CreateViewModel = hiltViewModel()) {
   val uiState: CreateUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-  val updateItemClick by rememberUpdatedState(newValue = onItemClicked)
-
-
-  viewModel.eventFlow.CollectWithLifecycleEffect { event ->
-    when (event) {
-      is CreateEvent.ActionLoadAdsInter -> {
-        updateItemClick(event.createType)
-      }
-    }
-  }
-
-
   CreateScreen(
     uiState = uiState,
     onItemClicked = {
-
+      onItemClicked(it)
     },
   )
 }

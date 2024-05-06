@@ -86,6 +86,7 @@ fun CreateQrDetailRoute(
     uiState = uiState,
     countryCode = countryCode,
     onBackPressed = {
+                    onBackPressed()
     },
     onCountryCodeClicked = onCountryCodeClicked,
     onChipSelected = {
@@ -95,7 +96,7 @@ fun CreateQrDetailRoute(
       val result = uiState.selectedChip.toResult(content)
       resultSharedViewModel.onTypeChanged(result)
       resultSharedViewModel.insertHistory(result)
-
+      onCreatePressed()
     },
   )
 }
